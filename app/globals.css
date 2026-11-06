@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 88%;
+    --input: 214 32% 88%;
+    --ring: 199 89% 48%;
+    --chart-1: 199 89% 48%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.625rem;
+    --success: 142 71% 45%;
+    --warning: 38 92% 50%;
+  }
+
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 96%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 199 89% 56%;
+    --primary-foreground: 222 47% 8%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 199 89% 56%;
+    --accent-foreground: 222 47% 8%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 96%;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 199 89% 56%;
+    --chart-1: 199 89% 56%;
+    --chart-2: 160 60% 50%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 65%;
+    --chart-5: 340 75% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-white/10;
+  }
+  .glass-card {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-sky-500 to-cyan-400 bg-clip-text text-transparent;
+  }
+  .gradient-bg {
+    background: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(165 70% 42%) 100%);
+  }
+  .gradient-bg-soft {
+    background: linear-gradient(135deg, hsl(199 89% 48% / 0.08) 0%, hsl(165 70% 42% / 0.08) 100%);
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---------- Motion & 3D (landing page) ---------- */
+
+/* Lenis smooth scrolling (recommended base styles) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@layer utilities {
+  .marquee-track { animation: marquee 38s linear infinite; }
+  .marquee-reverse { animation-direction: reverse; }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .float-slow { animation: floatY 7s ease-in-out infinite; }
+  .float-slower { animation: floatY 10s ease-in-out infinite reverse; }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+    50% { transform: translateY(-14px) rotate(calc(var(--tilt, 0deg) + 1.5deg)); }
+  }
+
+  .spin-3d { animation: spin3d 22s linear infinite; transform-style: preserve-3d; }
+  .spin-3d-reverse { animation: spin3d 30s linear infinite reverse; transform-style: preserve-3d; }
+  @keyframes spin3d {
+    from { transform: rotateX(62deg) rotateZ(0deg); }
+    to { transform: rotateX(62deg) rotateZ(360deg); }
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1.5px hsl(var(--foreground) / 0.22);
+    color: transparent;
+  }
+
+  .grid-fade {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .float-slow, .float-slower, .spin-3d, .spin-3d-reverse { animation: none; }
+}
